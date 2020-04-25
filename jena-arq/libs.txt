@@ -1,0 +1,14 @@
+https://repo1.maven.org/maven2/org/apache/jena/jena-arq/3.14.0/jena-arq-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-base/3.14.0/jena-base-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-cmds/3.14.0/jena-cmds-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-core/3.14.0/jena-core-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-dboe-base/3.14.0/jena-dboe-base-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-iri/3.14.0/jena-iri-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-shaded-guava/3.14.0/jena-shaded-guava-3.14.0.jar
+https://repo1.maven.org/maven2/org/apache/jena/jena-tdb2/3.14.0/jena-tdb2-3.14.0.jar
+https://repo1.maven.org/maven2/com/github/jsonld-java/jsonld-java/0.12.5/jsonld-java-0.12.5.jar
+https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar
+https://repo1.maven.org/maven2/org/apache/thrift/libthrift/0.13.0/libthrift-0.13.0.jar
+https://repo1.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar
+https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar
+https://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.26/slf4j-log4j12-1.7.26.jar
