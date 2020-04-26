@@ -26,14 +26,6 @@ From command line:
 $ python arqalgebra.py 'select ?p (count(*) as ?c) where { ?s ?p ?o } group by ?p order by desc(?c)'
 ```
 
-From Python:
-
-```python
-import arqalgebra as aa
-
-s_exp = aa.parse('select ?p (count(*) as ?c) where { ?s ?p ?o } group by ?p order by desc(?c)')
-```
-
 The expected output is the S-expression:
 
 ```
@@ -42,6 +34,20 @@ The expected output is the S-expression:
     (extend ((?c ?.0))
       (group (?p) ((?.0 (count)))
         (bgp (triple ?s ?p ?o))))))
+```
+
+From Python, one can also append `oneline=True`:
+
+```python
+import arqalgebra as aa
+
+s_exp = aa.parse('select ?p (count(*) as ?c) where { ?s ?p ?o } group by ?p order by desc(?c)', oneline=True)
+```
+
+The expected output is the S-expression:
+
+```
+(project (?p ?c) (order ((desc ?c)) (extend ((?c ?.0)) (group (?p) ((?.0 (count))) (bgp (triple ?s ?p ?o))))))
 ```
 
 ## Tests

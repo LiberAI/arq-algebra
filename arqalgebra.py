@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 import subprocess
+import re
+
+regex = re.compile(r'\n\s+')
 
 class ARQAlgebraError(Exception):
     def __init__(self, expression):
@@ -16,7 +19,7 @@ class SPARQLSyntaxError(ARQAlgebraError):
         self.expression = expression
         self.message = "SPARQL syntax error"
 
-def parse(query):
+def parse(query, oneline=False):
     cmd = "java -cp jena-arq/* arq.qparse --print=op".split(' ')
     cmd.append(query)
     result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -25,7 +28,8 @@ def parse(query):
     if out.startswith('('):
         if out.startswith('(null') or out.startswith('(table'):
             raise QueryNotSupportedError(query)
-        return out.strip()
+        output = regex.sub(' ', out.strip()) if oneline else out.strip()
+        return output
     if err.startswith('Encountered'):
         raise SPARQLSyntaxError(err.split('\n')[0])
     raise ARQAlgebraError(err)
@@ -33,4 +37,4 @@ def parse(query):
 
 if __name__ == '__main__':
     import sys
-    print(parse(sys.argv[1]))
+    print(parse(sys.argv[1], oneline=True))

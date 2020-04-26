@@ -7,6 +7,10 @@ def test_count():
     assert parse('select ?p (count(*) as ?c) where { ?s ?p ?o } group by ?p order by desc(?c)') == \
             '(project (?p ?c)\n  (order ((desc ?c))\n    (extend ((?c ?.0))\n      (group (?p) ((?.0 (count)))\n        (bgp (triple ?s ?p ?o))))))'
 
+def test_count_oneline():
+    assert parse('select ?p (count(*) as ?c) where { ?s ?p ?o } group by ?p order by desc(?c)', oneline=True) == \
+            '(project (?p ?c) (order ((desc ?c)) (extend ((?c ?.0)) (group (?p) ((?.0 (count))) (bgp (triple ?s ?p ?o))))))'
+
 def test_filter():
     assert parse('select ?p where { ?s ?p ?o ; ?p2 "asd"@en . filter(regex(?o, "http://")) } limit 10') == \
             '(slice _ 10\n  (project (?p)\n    (filter (regex ?o "http://")\n      (bgp\n        (triple ?s ?p ?o)\n        (triple ?s ?p2 "asd"@en)\n      ))))'
