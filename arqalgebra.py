@@ -37,4 +37,4 @@ def parse(query, oneline=False):
 
 if __name__ == '__main__':
     import sys
-    print(parse(sys.argv[1], oneline=True))
+    print(parse(sys.argv[1]))
