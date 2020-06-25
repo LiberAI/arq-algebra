@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import pytest
-from arqalgebra import parse, SPARQLSyntaxError, QueryNotSupportedError
+from arqalgebra import parse, parse_to_tree, search, SPARQLSyntaxError, QueryNotSupportedError
 
 
 def test_count():
@@ -38,3 +38,11 @@ def test_incomplete_query():
 def test_empty_query():
     with pytest.raises(SPARQLSyntaxError):
         parse('')
+
+def test_parse_to_tree():
+    assert str(parse_to_tree('PREFIX dbo: <http://dbpedia.org/ontology/> PREFIX res: <http://dbpedia.org/resource/> SELECT DISTINCT ?uri ?c WHERE { res:New_York_City dbo:leaderName ?uri ; dbo:country ?c }')) == \
+            "[Symbol('prefix'), [[Symbol('dbo:'), Symbol('<http://dbpedia.org/ontology/>')], [Symbol('res:'), Symbol('<http://dbpedia.org/resource/>')]], [Symbol('distinct'), [Symbol('project'), [Symbol('?uri'), Symbol('?c')], [Symbol('bgp'), [Symbol('triple'), Symbol('res:New_York_City'), Symbol('dbo:leaderName'), Symbol('?uri')], [Symbol('triple'), Symbol('res:New_York_City'), Symbol('dbo:country'), Symbol('?c')]]]]]"
+
+def test_search():
+    assert str(search(parse_to_tree('PREFIX dbo: <http://dbpedia.org/ontology/> PREFIX res: <http://dbpedia.org/resource/> SELECT DISTINCT ?uri ?c WHERE { res:New_York_City dbo:leaderName ?uri ; dbo:country ?c }'), 'bgp')) == \
+            "[Symbol('bgp'), [Symbol('triple'), Symbol('res:New_York_City'), Symbol('dbo:leaderName'), Symbol('?uri')], [Symbol('triple'), Symbol('res:New_York_City'), Symbol('dbo:country'), Symbol('?c')]]"
